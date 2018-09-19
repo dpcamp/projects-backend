@@ -49,7 +49,7 @@ router.route('/id/:id')
 });
 // Single Job Get Route By proj_id
 
-router.route('proj_id/:id')
+router.route('/proj_id/:id')
     .get((req, res) => {
         job.findAll({
             where: {
