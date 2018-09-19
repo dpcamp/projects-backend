@@ -4,20 +4,32 @@
     "password": "m!s@cc3ss",
     "database": "PEMasterBudget",
     "host": "GRF-MISDEV",
-    "dialect": "mssql"
+    "dialect": "mssql",
+    "dialectOptions": {
+      "encrypt": false
+    },
+    "operatorsAliases": "false"
   },
   "test": {
     "username": "mis",
     "password": "m!s@cc3ss",
     "database": "PEMasterBudget",
     "host": "GRF-MISDEV",
-    "dialect": "mssql"
+    "dialect": "mssql",
+    "dialectOptions": {
+      "encrypt": false
+    },
+    "operatorsAliases": "false"
   },
   "production": {
     "username": "mis",
     "password": "m!s@cc3ss",
     "database": "PEMasterBudget",
     "host": "GRF-MISDEV",
-    "dialect": "mssql"
+    "dialect": "mssql",
+    "dialectOptions": {
+      "encrypt": false
+    },
+    "operatorsAliases": "false"
   }
 }
