@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   requisition.associate = function(models) {
     // associations can be defined here
     requisition.belongsTo(models.job, {foreignKey: 'proj_id', targetKey: 'proj_id'})
+    //requisition.hasOne(models.invoice, {foreignKey: 'po_num', targetKey: 'po_num'})
   };
   return requisition;
 };

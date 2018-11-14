@@ -4,7 +4,7 @@ const express = require('express'),
     ;
 Op = models.Sequelize.Op
 job = models.job
-reqs = models.requisition
+rqs = models.requisition
 inv = models.invoice
 
 // Single invoice Get Route
@@ -60,6 +60,54 @@ router.route('/')
       })
 
 
+  });
+
+  // Invoice PUT route by id
+router.route('/:id')
+.put((req, res) => {
+  const id = req.params.id;
+
+  inv.update(req.body, {
+    where: {
+      id: { [Op.eq]: id }
+    }
+  })
+    .then(function (pinv) {
+
+      res.status(200).json({ 
+          message: `Invoice ID: ${id} updated!`,
+          data: inv
+      });
+    })
+    .catch(function (err) {
+      res.status(500).json({
+          message: err
+      });
+    });
+});
+
+// Invoice DELETE Route by ID
+router.route('/:id')
+  .delete((req, res) => {
+    const id = req.params.id;
+
+    inv.destroy({
+      where: {
+        id: { [Op.eq]: id }
+      }
+    })
+
+      .then(function (inv) {
+
+        res.status(200).json({ 
+            message: `Invoice number:${inv.inv_num} deleted!`
+        });
+      })
+      .catch(function (err) {
+        res.status(500).json({
+            message: err
+        });
+      });
   });
 
 
