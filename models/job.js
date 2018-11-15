@@ -16,8 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     balance: DataTypes.DECIMAL,
     has_budget: DataTypes.BOOLEAN,
     year: DataTypes.INTEGER,
-    gl_num: DataTypes.INTEGER,
-    gl_desc: DataTypes.TEXT
+    gl_num: DataTypes.TEXT,
+    gl_desc: DataTypes.TEXT,
+    created_by: DataTypes.STRING,
+    assigned_to: DataTypes.STRING,
+    updated_by: DataTypes.STRING
   }, {
     underscored: true,
   });

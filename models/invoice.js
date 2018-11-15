@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     line_name:  DataTypes.STRING,    
     amount:  DataTypes.DECIMAL,    
     description:  DataTypes.STRING,    
-    comment:  DataTypes.STRING,    
+    comment:  DataTypes.STRING,
+    created_by:  DataTypes.STRING,   
+    updated_by:  DataTypes.STRING      
   }, {
     underscored: true,
   });

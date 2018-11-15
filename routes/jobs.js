@@ -9,10 +9,29 @@ job = models.job
 reqs = models.requisition
 inv = models.invoice
 
-// Get jobs Project Budget Data
+// Get all jobs with Budget Data
     router.route('/')
     .get((req, res) => {
         sq.query(`SELECT * FROM dbo.jobs AS A join dbo.all_budget as B on A.proj_id = B.proj_id`, {type: sq.QueryTypes.SELECT})
+            .then((data) => {
+                res.status(200).json({
+                    data: data
+                })
+            })
+            .catch((err) => {
+                res.status(500).json({message: `${err}`});
+            })
+    });
+// Get all jobs with Budget Data filtered by current User
+    router.route('/')
+    .get((req, res) => {
+        sq.query(
+            `SELECT * FROM dbo.jobs AS A join dbo.all_budget as B on A.proj_id = B.proj_id where A.assigned_to = :username`,
+        { 
+            replacements: {username: req.body.username }, 
+            type: sq.QueryTypes.SELECT
+        }
+        )
             .then((data) => {
                 res.status(200).json({
                     data: data
