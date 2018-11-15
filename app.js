@@ -9,14 +9,18 @@ var logger = require('morgan');
 var jobsRouter = require('./routes/jobs');
 var invsRouter = require('./routes/invoices');
 var reqsRouter = require('./routes/requisitions');
-
+var corsOptions = {
+  origin: ['http://192.168.235.97:4200','http://pebud.vmsinc.org'],
+  credentials: true,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 var app = express();
 var cors = require('cors');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
