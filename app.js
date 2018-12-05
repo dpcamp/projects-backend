@@ -9,6 +9,8 @@ var logger = require('morgan');
 var jobsRouter = require('./routes/jobs');
 var invsRouter = require('./routes/invoices');
 var reqsRouter = require('./routes/requisitions');
+var usersRouter = require('./routes/users');
+
 var corsOptions = {
   origin: ['http://192.168.235.97:4200','http://pebud.vmsinc.org'],
   credentials: true,
@@ -34,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/jobs', jobsRouter);
 app.use('/api/invoices', invsRouter);
 app.use('/api/requisitions', reqsRouter);
+app.use('/api/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

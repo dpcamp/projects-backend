@@ -82,6 +82,7 @@ router.route('/id/:id')
      
         include: [
             {model: reqs,
+                where: {budget_year: 'null' || 'job.year'},
             group: ['job.id', 'job.proj_id'],
             attributes: [[Sq.fn('SUM', (Sq.fn('COALESCE', (Sq.col('requisitions.amount')), 0))), 'live_uncommitted']]},
             {model: inv}
@@ -104,12 +105,16 @@ router.route('/id/:id')
 
 router.route('/proj_id/:id')
     .get((req, res) => {
+        console.log(req.query.year)
         job.find({
             where: {
             proj_id: { [Op.eq]: req.params.id }
             },
             include: [
-                {model: reqs},
+                {model: reqs,
+                    
+                    where: {budget_year: null && req.query.year}
+                },
                 {model: inv}
             ]
         })

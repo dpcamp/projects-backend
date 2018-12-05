@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     amount: DataTypes.DECIMAL,
     description: DataTypes.STRING,
-    location: DataTypes.STRING
+    location: DataTypes.STRING,
+    budget_year: DataTypes.INTEGER
   }, {
     underscored: true,
   });
