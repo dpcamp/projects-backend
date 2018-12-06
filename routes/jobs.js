@@ -81,10 +81,10 @@ router.route('/id/:id')
 
      
         include: [
-            {model: reqs,
-                where: {budget_year: 'null' || 'job.year'},
-            group: ['job.id', 'job.proj_id'],
-            attributes: [[Sq.fn('SUM', (Sq.fn('COALESCE', (Sq.col('requisitions.amount')), 0))), 'live_uncommitted']]},
+            {model: reqs},
+                //where: {budget_year: 'null' || 'job.year'},
+            //group: ['job.id', 'job.proj_id'],
+            //attributes: [[Sq.fn('SUM', (Sq.fn('COALESCE', (Sq.col('requisitions.amount')), 0))), 'live_uncommitted']]},
             {model: inv}
         ],
         raw: true,
@@ -113,7 +113,12 @@ router.route('/proj_id/:id')
             include: [
                 {model: reqs,
                     
-                    where: {budget_year: null && req.query.year}
+                    where: {
+                    [Op.or]: [
+                        {budget_year: req.query.year},
+                        {budget_year: null}
+                        ]
+                    }
                 },
                 {model: inv}
             ]

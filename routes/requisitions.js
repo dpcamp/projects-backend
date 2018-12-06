@@ -86,7 +86,6 @@ router.route('/id/:id')
 router.route('/id/:id')
   .put((req, res) => {
     const id = req.params.id;
-
     rqs.update(req.body, {
       where: {
         id: { [Op.eq]: id }
@@ -106,7 +105,30 @@ router.route('/id/:id')
         });
       });
   });
-    
+
+// requisition bulk PUT route by req
+router.route('/req_num/:id')
+.put((req, res) => {
+  const id = req.params.id;
+  rqs.update(req.body, {
+    where: {
+      req_num: { [Op.eq]: id }
+    }
+  }).spread((affectedCount, affectedRows) =>{
+      rqs.findAll();
+  }).then(function (pJob) {
+
+      res.status(200).json({ 
+          message: `Requisition ${id} updated!`,
+          data: rqs 
+      });
+    })
+    .catch(function (err) {
+      res.status(500).json({
+          message: err
+      });
+    });
+});
 
 
     module.exports = router;
