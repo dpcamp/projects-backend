@@ -12,7 +12,7 @@ inv = models.invoice
 // Get all jobs with Budget Data
     router.route('/')
     .get((req, res) => {
-        sq.query(`SELECT * FROM dbo.jobs AS A join dbo.all_budget as B on A.proj_id = B.proj_id`, {type: sq.QueryTypes.SELECT})
+        sq.query(`SELECT * FROM dbo.jobs AS A join dbo.all_budget as B on A.id = B.job_id`, {type: sq.QueryTypes.SELECT})
             .then((data) => {
                 res.status(200).json({
                     data: data
@@ -108,7 +108,8 @@ router.route('/proj_id/:id')
         console.log(req.query.year)
         job.find({
             where: {
-            proj_id: { [Op.eq]: req.params.id }
+            proj_id: { [Op.eq]: req.params.id}, 
+            year: {[Op.eq]: req.query.year}
             },
             include: [
                 {model: reqs,
@@ -118,8 +119,9 @@ router.route('/proj_id/:id')
                         {budget_year: req.query.year},
                         {budget_year: null}
                         ]
-                    }
-                },
+                     },
+                     required: false,
+             },
                 {model: inv}
             ]
         })
@@ -156,7 +158,8 @@ router.route('/proj_id/:id')
     router.route('/proj_budget/:id')
     .get((req, res) => {
         const projID = req.params.id
-        sq.query(`getBudget @projID = :projID`, { replacements: { projID: projID }, type: sq.QueryTypes.SELECT})
+        const projYear = req.query.year
+        sq.query(`getBudget @projID = :projID, @projYear = :projYear`, { replacements: { projID: projID, projYear: projYear }, type: sq.QueryTypes.SELECT})
             .then((job) => {
                 if (!job) {
                     res.status(404).json({message: `Job ID: ${id} not found!` })

@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   job.associate = function(models) {
     // associations can be defined here
     job.hasMany(models.requisition, {foreignKey: 'proj_id', sourceKey: 'proj_id'})
-    job.hasMany(models.invoice, {foreignKey: 'proj_id', sourceKey: 'proj_id'})
+    job.hasMany(models.invoice, {foreignKey: 'proj_id', sourceKey: 'id'})
   };
   return job;
 };
