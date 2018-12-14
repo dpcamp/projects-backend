@@ -14,9 +14,9 @@ router.route('/')
     .get((req, res) => {
         inv.findAll({}
         )
-            .then((inv) => {
+            .then((data) => {
                 res.status(200).json({
-                    data: inv
+                    data: data
                 })
             })
             .catch((err) => {
